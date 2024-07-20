@@ -2,7 +2,7 @@
 FROM node:18-slim
 
 # Set the working directory in the container
-WORKDIR /src
+WORKDIR /usr/src/app
 
 # Clone the repository into the container
 # Note: Use git clone in a multi-stage build or as part of a build process.
