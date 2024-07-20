@@ -4,18 +4,14 @@ FROM node:18-slim
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Clone the repository into the container
-# Note: Use git clone in a multi-stage build or as part of a build process.
-# For simplicity, we directly copy the content from the repository in this example.
-
-# Copy package.json and package-lock.json
-COPY api/package*.json ./
+# Copy package.json and package-lock.json (if available)
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the application code
-COPY api/ .
+COPY . .
 
 # Expose port 80 (or whichever port your app runs on)
 EXPOSE 80
