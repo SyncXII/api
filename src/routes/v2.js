@@ -191,47 +191,6 @@ router.get("/popular", async (req, res, next) => {
   }
 });
 
-router.get("/schedule", async (req, res, next) => {
-  try {
-    const { data } = await axios.post("https://api.anify.tv/schedule", {
-      fields: [
-        "id",
-        "idMal",
-        "title",
-        "coverImage",
-        "bannerImage",
-        "mappings",
-        "description",
-        "countryOfOrigin",
-        "year",
-        "color",
-        "format",
-        "type",
-        "genres",
-        "tags",
-        "airingAt",
-        "aringEpisode",
-        "totalEpisode",
-        "season",
-        "status",
-        "currentEpisode",
-      ],
-        type: "anime"
-    }
-  });
-// get current day
-    const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const currentDay = days[new Date().getDay()];
-
-    const todayShows = data[currentDay] || [];
-    
-    res.status(200).json(successRes(200, "success", {results: todayShows}));
-
-  } catch (error) {
-    next(error);
-  }
-});
-
 /* router.get("/schedule", async (req, res, next) => {
   try {
     const { data } = await axios.post("https://api.anify.tv/schedule", {
