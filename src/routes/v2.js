@@ -253,8 +253,6 @@ router.get("/schedule", async (req, res, next) => {
   }
 });
 
-module.exports = router;
-
 /* router.get("/schedule", async (req, res, next) => {
   try {
     const { data } = await axios.post("https://api.anify.tv/schedule", {
