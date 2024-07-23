@@ -193,6 +193,60 @@ router.get("/popular", async (req, res, next) => {
 
 router.get("/schedule", async (req, res, next) => {
   try {
+    console.log('Initiating request to https://api.anify.tv/schedule');
+    
+    const { data } = await axios.post("https://api.anify.tv/schedule", {
+      fields: [
+        "id",
+        "idMal",
+        "title",
+        "coverImage",
+        "bannerImage",
+        "mappings",
+        "description",
+        "countryOfOrigin",
+        "year",
+        "color",
+        "format",
+        "type",
+        "genres",
+        "tags",
+        "airingAt",
+        "aringEpisode",
+        "totalEpisode",
+        "season",
+        "status",
+        "currentEpisode",
+      ],
+      type: "anime"
+    }, {
+      timeout: 30000 // Extend the timeout to 30 seconds
+    });
+
+    console.log('Received response from the API');
+    
+    // Assuming the API response structure is:
+    // { sunday: [..], monday: [..], tuesday: [..], wednesday: [..], thursday: [..], friday: [..], saturday: [..] }
+    res.status(200).json({
+      status: 'success',
+      code: 200,
+      message: 'success',
+      data: { results: data }
+    });
+  } catch (error) {
+    console.error('Error occurred:', error.response ? error.response.data : error.message);
+    res.status(500).json({
+      status: 'error',
+      code: 500,
+      message: 'Internal Server Error',
+      error: error.response ? error.response.data : error.message
+    });
+    next(error);
+  }
+});
+
+/* router.get("/schedule", async (req, res, next) => {
+  try {
     const { data } = await axios.post("https://api.anify.tv/schedule", {
       fields: [
         "id",
@@ -226,7 +280,7 @@ router.get("/schedule", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-});
+}); */
 
 router.get("/season/:season/:year", async (req, res, next) => {
   try {
