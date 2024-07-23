@@ -217,6 +217,9 @@ router.get("/schedule", async (req, res, next) => {
         "currentEpisode",
       ],
       type: "anime",
+    },
+      {
+      timeout: 30000 // Extend the timeout to 30 seconds
     });
 
     res.status(200).json(successRes(200, "success", { results: data }));
