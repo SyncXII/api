@@ -216,7 +216,7 @@ router.get("/schedule", async (req, res, next) => {
         "status",
         "currentEpisode",
       ],
-        type: "anime",
+        type: "anime"
     }
   });
 // get current day
