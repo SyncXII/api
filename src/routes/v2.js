@@ -191,10 +191,6 @@ router.get("/popular", async (req, res, next) => {
   }
 });
 
-const express = require('express');
-const axios = require('axios');
-const router = express.Router();
-
 router.get("/schedule", async (req, res, next) => {
   try {
     console.log('Initiating request to https://api.anify.tv/schedule');
@@ -252,6 +248,8 @@ router.get("/schedule", async (req, res, next) => {
     next(error);
   }
 });
+
+module.exports = router;
 
 /* router.get("/schedule", async (req, res, next) => {
   try {
