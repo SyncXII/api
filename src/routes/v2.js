@@ -191,11 +191,15 @@ router.get("/popular", async (req, res, next) => {
   }
 });
 
+const express = require('express');
+const axios = require('axios');
+const router = express.Router();
+
 router.get("/schedule", async (req, res, next) => {
   try {
     console.log('Initiating request to https://api.anify.tv/schedule');
     
-    const { data } = await axios.post("https://api.anify.tv/schedule", {
+    const response = await axios.post("https://api.anify.tv/schedule", {
       fields: [
         "id",
         "idMal",
@@ -225,13 +229,17 @@ router.get("/schedule", async (req, res, next) => {
 
     console.log('Received response from the API');
     
+    if (!response || !response.data) {
+      throw new Error('Invalid API response');
+    }
+
     // Assuming the API response structure is:
     // { sunday: [..], monday: [..], tuesday: [..], wednesday: [..], thursday: [..], friday: [..], saturday: [..] }
     res.status(200).json({
       status: 'success',
       code: 200,
       message: 'success',
-      data: { results: data }
+      data: { results: response.data }
     });
   } catch (error) {
     console.error('Error occurred:', error.response ? error.response.data : error.message);
@@ -244,6 +252,8 @@ router.get("/schedule", async (req, res, next) => {
     next(error);
   }
 });
+
+module.exports = router;
 
 /* router.get("/schedule", async (req, res, next) => {
   try {
